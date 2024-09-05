@@ -1,70 +1,109 @@
-# Getting Started with Create React App
+# Netflix Clone
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is a Netflix clone application built with a React frontend and a Spring Boot backend. The project uses MySQL for the database, managed via phpMyAdmin using XAMPP. The application demonstrates various features and functionalities inspired by Netflix, emphasizing full-stack development and REST API integration.
 
-## Available Scripts
+## Prerequisites
 
-In the project directory, you can run:
+- [Node.js](https://nodejs.org/)
+- [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
+- [Java JDK](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html) (version 11 or higher)
+- [Spring Boot](https://spring.io/projects/spring-boot)
+- [XAMPP](https://www.apachefriends.org/index.html) (for MySQL and phpMyAdmin)
+- [Maven](https://maven.apache.org/)
 
-### `npm start`
+## Getting Started
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### 1. Setting Up the Database
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+1. Download and install [XAMPP](https://www.apachefriends.org/index.html).
+2. Open XAMPP Control Panel and start `Apache` and `MySQL`.
+3. Open phpMyAdmin by visiting `http://localhost/phpmyadmin/` in your browser.
+4. Create a new database named `netflix`.
+5. Import the provided SQL file to set up the initial database structure and data (if available).
 
-### `npm test`
+### 2. Setting Up the Backend
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. Clone the repository to your local machine:
 
-### `npm run build`
+    ```sh
+    git clone https://github.com/Delving-Mage/Netflix_Clone.git
+    cd Netflix_Clone/backend
+    ```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+2. Ensure you have Java JDK and Maven installed.
+3. Update the database configuration in `src/main/resources/application.properties`:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+    ```properties
+    spring.application.name=backend
+    spring.jpa.hibernate.ddl-auto=update
+    spring.datasource.url=jdbc:mysql://localhost:3306/netflix?createDatabaseIfNotExist=true
+    spring.datasource.username=root
+    spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+    spring.jpa.show-sql=true
+    ```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+4. Navigate to the backend directory and run the backend application:
 
-### `npm run eject`
+    ```sh
+    mvn spring-boot:run
+    ```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+    Alternatively, you can run the main application class directly:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+    ```sh
+    cd src/main/java/com/netflixClone/backend
+    java BackendApplication.java
+    ```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+    The backend will be running on `http://localhost:8080`.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+5. After running the backend for the first time, the `netflix` database will be created automatically, and the `video_meta_data` table will be set up.
 
-## Learn More
+6. To populate the `video_meta_data` table, import the SQL file `SQL/video_meta_data.sql`:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+    - Open phpMyAdmin.
+    - Select the `netflix` database.
+    - Navigate to the `Import` tab.
+    - Choose the `SQL/video_meta_data.sql` file from the repository.
+    - Click `Go` to execute the SQL script and populate the table.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### 3. Setting Up the Frontend
 
-### Code Splitting
+1. Open a new terminal window, navigate to the frontend directory:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+    ```sh
+    cd Netflix_Clone
+    ```
 
-### Analyzing the Bundle Size
+2. Install the dependencies:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+    ```sh
+    npm install
+    # or
+    yarn install
+    ```
 
-### Making a Progressive Web App
+3. Start the React application:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+    ```sh
+    npm start
+    # or
+    yarn start
+    ```
 
-### Advanced Configuration
+    The frontend will be running on `http://localhost:3000`.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## Usage
 
-### Deployment
+- Visit `http://localhost:3000` to use the application.
+- Ensure the backend is running at `http://localhost:8080` for the frontend to interact with the backend APIs.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## Contributing
 
-### `npm run build` fails to minify
+1. Fork the repository
+2. Create a new branch (`git checkout -b feature-branch`)
+3. Make your changes
+4. Commit your changes (`git commit -am 'Add new feature'`)
+5. Push to the branch (`git push origin feature-branch`)
+6. Create a new Pull Request
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
